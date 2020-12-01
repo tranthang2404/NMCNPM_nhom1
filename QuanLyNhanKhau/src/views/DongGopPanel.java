@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import views.Payment.AddEvent;
+import views.Payment.DanhSachChuaDong;
 import views.Payment.ListPayment;
 
 /**
@@ -43,7 +44,9 @@ public class DongGopPanel extends javax.swing.JPanel {
         AddEventBtn = new javax.swing.JButton();
         ListBtn = new javax.swing.JButton();
         JpnTable = new javax.swing.JPanel();
+        JbtChuaDong = new javax.swing.JButton();
 
+        AddEventBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         AddEventBtn.setText("Thêm Event");
         AddEventBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +54,8 @@ public class DongGopPanel extends javax.swing.JPanel {
             }
         });
 
-        ListBtn.setText("Danh sách");
+        ListBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ListBtn.setText("Danh sách đóng");
         ListBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ListBtnActionPerformed(evt);
@@ -62,12 +66,20 @@ public class DongGopPanel extends javax.swing.JPanel {
         JpnTable.setLayout(JpnTableLayout);
         JpnTableLayout.setHorizontalGroup(
             JpnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
+            .addGap(0, 439, Short.MAX_VALUE)
         );
         JpnTableLayout.setVerticalGroup(
             JpnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        JbtChuaDong.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JbtChuaDong.setText("Danh sách chưa đóng");
+        JbtChuaDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JbtChuaDongActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -78,16 +90,19 @@ public class DongGopPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AddEventBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(AddEventBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JbtChuaDong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGap(53, 53, 53)
                 .addComponent(AddEventBtn)
-                .addGap(67, 67, 67)
+                .addGap(152, 152, 152)
                 .addComponent(ListBtn)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(JbtChuaDong)
+                .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(JpnTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -109,9 +124,19 @@ public class DongGopPanel extends javax.swing.JPanel {
         listPaymentView.setVisible(true);
     }//GEN-LAST:event_ListBtnActionPerformed
 
+    private void JbtChuaDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtChuaDongActionPerformed
+        // TODO add your handling code here:
+        DanhSachChuaDong dsChuaDong = new DanhSachChuaDong();
+        dsChuaDong.setLocationRelativeTo(null);
+        dsChuaDong.setMinimumSize(new Dimension(1000,600));
+        dsChuaDong.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dsChuaDong.setVisible(true);
+    }//GEN-LAST:event_JbtChuaDongActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEventBtn;
+    private javax.swing.JButton JbtChuaDong;
     private javax.swing.JPanel JpnTable;
     private javax.swing.JButton ListBtn;
     // End of variables declaration//GEN-END:variables
