@@ -18,6 +18,7 @@ public class ListPayment extends javax.swing.JFrame {
     private DongGopPanelController dongGopController;
     public ListPayment() {
         initComponents();
+        this.setTitle("Danh sách đóng góp");
         dongGopController = new DongGopPanelController();
         dongGopController.setDataToComboBox(JcbEvent);
     }
@@ -34,6 +35,7 @@ public class ListPayment extends javax.swing.JFrame {
         JpnTable = new javax.swing.JPanel();
         JcbEvent = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jbtLammoi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,7 +50,7 @@ public class ListPayment extends javax.swing.JFrame {
             .addGap(0, 496, Short.MAX_VALUE)
         );
 
-        JcbEvent.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JcbEvent.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JcbEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         JcbEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +61,13 @@ public class ListPayment extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Chọn sự kiện");
 
+        jbtLammoi.setText("Làm mới");
+        jbtLammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLammoiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,17 +76,20 @@ public class ListPayment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(JcbEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(JcbEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jbtLammoi)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JcbEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(JcbEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jbtLammoi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JpnTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -94,44 +106,23 @@ public class ListPayment extends javax.swing.JFrame {
         
     }//GEN-LAST:event_JcbEventActionPerformed
 
+    private void jbtLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLammoiActionPerformed
+       
+        String eventName = (String)JcbEvent.getSelectedItem();
+        if(eventName.indexOf(':') <0 ) return;
+        int eventID = Integer.parseInt(eventName.substring(0, eventName.indexOf(':')));
+        DanhSachDongGopController dsdonggop = new DanhSachDongGopController(JpnTable, eventID);
+    }//GEN-LAST:event_jbtLammoiActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListPayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListPayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListPayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListPayment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListPayment().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JcbEvent;
     private javax.swing.JPanel JpnTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jbtLammoi;
     // End of variables declaration//GEN-END:variables
 }
