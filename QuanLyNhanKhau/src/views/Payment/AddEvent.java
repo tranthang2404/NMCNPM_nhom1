@@ -5,7 +5,11 @@
  */
 package views.Payment;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import models.EventModel;
+import services.DongGopService;
 
 /**
  *
@@ -14,9 +18,11 @@ import javax.swing.JFrame;
 public class AddEvent extends javax.swing.JFrame {
 
     private JFrame parentJFrame;
+    private final DongGopService donggopService = new DongGopService();
     public AddEvent() {
         initComponents();
-        JcbBatbuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Có", "Không" }));
+        this.setTitle("Thêm sự kiện");
+        JcbBatbuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Có", "Không"}));
     }
 
     /**
@@ -132,13 +138,35 @@ public class AddEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbtThemSukienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtThemSukienActionPerformed
-        // xử lý thêm sự kiện ở đây
+        EventModel event = new EventModel();
+        String ten = JtfTenSukien.getText();
+        event.setTensukien(ten);
+        try {
+            String batbuocstr = (String) JcbBatbuoc.getSelectedItem();
+            if(batbuocstr.charAt(0) == 'C') {
+                event.setBatbuoc(1);
+            }else{
+                event.setBatbuoc(0);
+            }
+            String donghk = JtfDongTheoHoKhau.getText();
+            event.setDongTheoHokhau(Integer.parseInt(donghk));
+            String dongnk = JtfDongTheoNhanKhau.getText();
+            event.setDongTheoNhanKhau(Integer.parseInt(dongnk));
+            if(donggopService.addEvent(event)){
+                 JOptionPane.showMessageDialog(null, "Ok!", "Đã lưu!", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                 JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi lưu!!", "Warning!!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!! Vui lòng nhập đúng và đủ thông tin!", "Warning!!", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_JbtThemSukienActionPerformed
 
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JbtThemSukien;
