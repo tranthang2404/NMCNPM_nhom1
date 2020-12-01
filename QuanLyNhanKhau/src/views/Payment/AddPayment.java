@@ -11,6 +11,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import models.PaymentModel;
+import services.DongGopService;
 
 /**
  *
@@ -23,14 +25,15 @@ public class AddPayment extends javax.swing.JFrame {
     private DongGopPanelController dongGopController;
     private int eventID;
     private String idHoKhau;
+    private final DongGopService dongGopService = new DongGopService();
 
-    public AddPayment(String idHoKhau,String content, JFrame parentJFrame) {
+    public AddPayment(String idHoKhau, String content, JFrame parentJFrame) {
         initComponents();
         this.idHoKhau = idHoKhau;
         this.content = content;
         this.JlbContent.setText(content);
         this.parentJFrame = parentJFrame;
-        this.setTitle("Thông tin chi tiết");
+        this.setTitle("Thêm đóng góp");
         dongGopController = new DongGopPanelController();
         dongGopController.setDataToComboBox(JcbEvent);
     }
@@ -52,6 +55,7 @@ public class AddPayment extends javax.swing.JFrame {
 
         JlbContent.setText("jLabel1");
 
+        JtfValue.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         JtfValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JtfValueActionPerformed(evt);
@@ -80,6 +84,7 @@ public class AddPayment extends javax.swing.JFrame {
         });
 
         JtfNote.setColumns(20);
+        JtfNote.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         JtfNote.setRows(5);
         jScrollPane1.setViewportView(JtfNote);
 
@@ -131,7 +136,7 @@ public class AddPayment extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 73, Short.MAX_VALUE)))
+                        .addGap(0, 38, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -151,21 +156,39 @@ public class AddPayment extends javax.swing.JFrame {
             value = 0;
         }
         String note = JtfNote.getText();
-        if(value > 0) {
-            // queery here
+        if (value > 0 && eventID >0) {
+            PaymentModel p = new PaymentModel();
+            p.setGhichu(note);
+            p.setIdHoKhau(idHoKhau);
+            p.setIdSukien(eventID);
+            p.setSoTienDaDong(value);
+            boolean b = dongGopService.addPayment(p);
+            if(b) {
+                JOptionPane.showMessageDialog(null, "OK!! ", "Đã lưu!!", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!! ", "Warning!!", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
         } else {
-            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!! Vui lòng nhập đúng định dạng số tiền!", "Warning!!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!! Vui lòng nhập đủ thông tin!", "Warning!!", JOptionPane.ERROR_MESSAGE);
         }
-        
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void JcbEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcbEventActionPerformed
-        JComboBox cb = (JComboBox)evt.getSource();
-        String eventName = (String)cb.getSelectedItem();
-        eventID = Integer.parseInt(eventName.substring(0, eventName.indexOf(':')));
-        System.err.println(eventID+ "  "+ idHoKhau);
+        JComboBox cb = (JComboBox) evt.getSource();
+        String eventName = (String) cb.getSelectedItem();
+        try {
+
+            eventID = Integer.parseInt(eventName.substring(0, eventName.indexOf(':')));
+        } catch (Exception e) {
+
+            eventID = -1;
+        }
+        System.err.println(eventID + "  " + idHoKhau);
     }//GEN-LAST:event_JcbEventActionPerformed
 
     /**
