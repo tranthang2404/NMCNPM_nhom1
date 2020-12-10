@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import views.Payment.AddEvent;
 import views.Payment.DanhSachChuaDong;
+import views.Payment.ListEvent;
 import views.Payment.ListPayment;
 
 /**
@@ -28,7 +29,7 @@ public class DongGopPanel extends javax.swing.JPanel {
         initComponents();
         this.parentFrame = parentFrame;
         this.dongGopController = new DongGopPanelController(JpnTable);
-        dongGopController.setParentJFrame(parentFrame); 
+        dongGopController.setParentJFrame(parentFrame);
 
     }
 
@@ -45,9 +46,10 @@ public class DongGopPanel extends javax.swing.JPanel {
         ListBtn = new javax.swing.JButton();
         JpnTable = new javax.swing.JPanel();
         JbtChuaDong = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         AddEventBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        AddEventBtn.setText("Thêm Event");
+        AddEventBtn.setText("Thêm sự kiện");
         AddEventBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddEventBtnActionPerformed(evt);
@@ -81,6 +83,14 @@ public class DongGopPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("Quản lý sự kiện");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,18 +101,21 @@ public class DongGopPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AddEventBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JbtChuaDong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(JbtChuaDong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(AddEventBtn)
-                .addGap(152, 152, 152)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(109, 109, 109)
                 .addComponent(ListBtn)
                 .addGap(28, 28, 28)
                 .addComponent(JbtChuaDong)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addComponent(JpnTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -119,7 +132,7 @@ public class DongGopPanel extends javax.swing.JPanel {
     private void ListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListBtnActionPerformed
         ListPayment listPaymentView = new ListPayment();
         listPaymentView.setLocationRelativeTo(null);
-        listPaymentView.setMinimumSize(new Dimension(1000,600));
+        listPaymentView.setMinimumSize(new Dimension(1000, 600));
         listPaymentView.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         listPaymentView.setVisible(true);
     }//GEN-LAST:event_ListBtnActionPerformed
@@ -128,10 +141,18 @@ public class DongGopPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DanhSachChuaDong dsChuaDong = new DanhSachChuaDong();
         dsChuaDong.setLocationRelativeTo(null);
-        dsChuaDong.setMinimumSize(new Dimension(1000,600));
+        dsChuaDong.setMinimumSize(new Dimension(1000, 600));
         dsChuaDong.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dsChuaDong.setVisible(true);
     }//GEN-LAST:event_JbtChuaDongActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ListEvent listEvent = new ListEvent();
+        listEvent.setLocationRelativeTo(null);
+        listEvent.setMinimumSize(new Dimension(1000, 600));
+        listEvent.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        listEvent.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -139,5 +160,6 @@ public class DongGopPanel extends javax.swing.JPanel {
     private javax.swing.JButton JbtChuaDong;
     private javax.swing.JPanel JpnTable;
     private javax.swing.JButton ListBtn;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
