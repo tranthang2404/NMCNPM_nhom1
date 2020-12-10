@@ -21,9 +21,8 @@ public class QuanLyNhanKhau {
         MainFrame mainFrame = new MainFrame();
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setResizable(false);
-         mainFrame.setVisible(true);
-     // LoginUI loginUI = new LoginUI();
-       // loginUI.setVisible(true); 
+     LoginUI loginUI = new LoginUI();
+       loginUI.setVisible(true); 
     }
     
 }
