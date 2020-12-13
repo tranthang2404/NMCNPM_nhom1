@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Lib/mysql-connector-java-5.1.40/src"/>
+	<classpathentry kind="src" path="QuanLyNhanKhau/src"/>
+	<classpathentry kind="lib" path="Lib/jcalendar-1.1.4.jar"/>
+	<classpathentry kind="lib" path="Lib/jcalendar-1.2.2.jar"/>
+	<classpathentry kind="lib" path="Lib/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="output" path="QuanLyNhanKhau/build/classes"/>
+</classpath>

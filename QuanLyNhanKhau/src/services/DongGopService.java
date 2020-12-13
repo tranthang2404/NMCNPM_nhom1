@@ -188,4 +188,42 @@ public class DongGopService {
             return null;
         }
     };
+    
+      public int totalPayment(int idSukien){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return 0;
+            String sql = "select * from dong_gop where idSukien = " + idSukien;
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery(sql);
+            List<PaymentModel> lst = new ArrayList<>();
+            while (rs.next()) {
+                PaymentModel p = new PaymentModel();
+                p.setId(rs.getInt("id"));
+                p.setIdSukien(rs.getInt("idSukien"));
+                p.setGhichu(rs.getString("ghichu"));
+                p.setThoigian(rs.getTimestamp("thoigian"));
+                p.setIdHoKhau(rs.getString("idHoKhau"));
+                p.setSoTienDaDong(rs.getInt("sotien"));
+                String idHoKhau = rs.getString("idHoKhau");
+                String sqltmp = "Select * from nhan_khau where ID = (SELECT idChuHo from ho_khau where maHoKhau = '" + idHoKhau+"')";
+                Statement stat2 = conn.createStatement();
+                ResultSet rs2 = stat2.executeQuery(sqltmp);
+                while(rs2.next()){
+                    p.setTenChuHo(rs2.getString("hoTen"));
+                    break;
+                }
+                 lst.add(p);
+            }
+            int sum = 0;
+            for(int i = 0; i<lst.size();i++){
+                sum += lst.get(i).getSoTienDaDong();
+            }
+
+            return sum;
+        }catch(Exception e) {
+            
+            return 0;
+        }
+    };
 }
