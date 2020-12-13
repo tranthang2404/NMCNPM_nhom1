@@ -6,6 +6,7 @@
 package services;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,16 +16,111 @@ import models.PaymentModel;
 
 /**
  *
- * @author Thang
+ * @author Administrator
  */
 public class DongGopService {
+    
+    
     public boolean addEvent(EventModel event){
-        return true;
+         try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "insert into su_kien(tensukien, batbuoc, dongTheoHokhau, dongTheoNhanKhau  ) values( ?, ?, ?,?)";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, event.getTensukien());
+            stat.setInt(2, event.getBatbuoc());
+            stat.setInt(3, event.getDongTheoHokhau());
+            stat.setInt(4, event.getDongTheoNhanKhau());
+            stat.executeUpdate();
+
+            return true;
+        }catch(Exception e) {
+
+            return false;
+        }
+    }
+     public boolean delEvent(int eventID){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "DELETE FROM su_kien WHERE id=" + eventID ;
+            Statement stat = conn.createStatement();
+            stat.execute(sql);
+
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    public boolean addPayment(PaymentModel payment){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "insert into dong_gop(idHoKhau, idSukien, sotien, ghichu ) values( ?, ?, ?,?)";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, payment.getIdHoKhau());
+            stat.setInt(2, payment.getIdSukien());
+            stat.setInt(3, payment.getSoTienDaDong());
+            stat.setString(4, payment.getGhichu());
+            stat.executeUpdate();
+
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
-    public boolean addPayment(PaymentModel payment){
-        return true;
+    public boolean updateEvent(int eventID, String tenEvent, int batBuoc, int dongHokhau, int dongNhankhau){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "UPDATE su_kien SET tensukien=?,batbuoc=?,dongTheoHokhau=?,dongTheoNhanKhau=? WHERE id=?";
+             PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, tenEvent);
+            stat.setInt(2, batBuoc);
+            stat.setInt(3, dongHokhau);
+            stat.setInt(4, dongNhankhau);
+            stat.setInt(5, eventID);
+            stat.executeUpdate();
+
+            return true;
+
+        }catch(Exception e){
+            return false;
+        }
+    } 
+    
+     public boolean delPayment(int paymentID){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "DELETE FROM dong_gop WHERE id=" + paymentID ;
+            Statement stat = conn.createStatement();
+            stat.execute(sql);
+
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
+     
+    public boolean updatePayment(int paymentID, int sotien, String ghichu){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return false;
+            String sql = "UPDATE dong_gop SET sotien=?,ghichu=? WHERE id=?";
+             PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setInt(1, sotien);
+            stat.setString(2, ghichu);
+            stat.setInt(3, paymentID);
+            stat.executeUpdate();
+
+            return true;
+
+        }catch(Exception e){
+            return false;
+        }
+    } 
     public List<EventModel> getAllEvents(){
         try{
             Connection conn = MysqlConnection.getMysqlConnection();
