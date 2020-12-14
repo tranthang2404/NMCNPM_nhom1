@@ -8,6 +8,7 @@ package views.Payment;
 import controllers.DanhSachDongGopController;
 import controllers.DongGopPanelController;
 import javax.swing.JComboBox;
+import services.DongGopService;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.swing.JComboBox;
 public class ListPayment extends javax.swing.JFrame {
 
     private DongGopPanelController dongGopController;
+    private final DongGopService dongGopService = new DongGopService();
     public ListPayment() {
         initComponents();
         this.setTitle("Danh sách đóng góp");
@@ -36,6 +38,9 @@ public class ListPayment extends javax.swing.JFrame {
         JcbEvent = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jbtLammoi = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        JlbTongSoTien = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +73,13 @@ public class ListPayment extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Tổng số tiền:");
+
+        JlbTongSoTien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JlbTongSoTien.setText("0");
+
+        jLabel3.setText("x1000 đồng");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,7 +90,13 @@ public class ListPayment extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(JcbEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(JlbTongSoTien, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addComponent(jbtLammoi)
                 .addContainerGap())
         );
@@ -89,7 +107,10 @@ public class ListPayment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addComponent(JcbEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jbtLammoi))
+                    .addComponent(jbtLammoi)
+                    .addComponent(jLabel2)
+                    .addComponent(JlbTongSoTien)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JpnTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -103,6 +124,7 @@ public class ListPayment extends javax.swing.JFrame {
         if(eventName.indexOf(':') <0 ) return;
         int eventID = Integer.parseInt(eventName.substring(0, eventName.indexOf(':')));
         DanhSachDongGopController dsdonggop = new DanhSachDongGopController(JpnTable, eventID);
+        JlbTongSoTien.setText(Integer.toString(dongGopService.totalPayment(eventID)));
         
     }//GEN-LAST:event_JcbEventActionPerformed
 
@@ -112,6 +134,7 @@ public class ListPayment extends javax.swing.JFrame {
         if(eventName.indexOf(':') <0 ) return;
         int eventID = Integer.parseInt(eventName.substring(0, eventName.indexOf(':')));
         DanhSachDongGopController dsdonggop = new DanhSachDongGopController(JpnTable, eventID);
+        JlbTongSoTien.setText(Integer.toString(dongGopService.totalPayment(eventID)));
     }//GEN-LAST:event_jbtLammoiActionPerformed
 
     /**
@@ -121,8 +144,11 @@ public class ListPayment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JcbEvent;
+    private javax.swing.JLabel JlbTongSoTien;
     private javax.swing.JPanel JpnTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jbtLammoi;
     // End of variables declaration//GEN-END:variables
 }
