@@ -40,6 +40,7 @@ public class ChangeEvent extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+
         jLabel2 = new javax.swing.JLabel();
         JcbBatBuoc = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -171,9 +172,9 @@ public class ChangeEvent extends javax.swing.JFrame {
             }else{
                 batbuoc = 0;
             }
-            
+
             Boolean bl = dongGopService.updateEvent(eventID, JtfTenSukien.getText(), batbuoc, Integer.parseInt(JtfHoKhau.getText()), Integer.parseInt(JtfNhanKhau.getText()));
-            
+
             if (bl) {
                 JOptionPane.showMessageDialog(null, "OK!! ", "Đã lưu thay đổi!!", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
