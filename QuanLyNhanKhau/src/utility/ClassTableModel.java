@@ -28,6 +28,7 @@ public class ClassTableModel {
                 return columnIndex == 5 ? Boolean.class : String.class;
             }
         };
+
         dtm.setColumnIdentifiers(listColumn);
         Object[] obj;
         obj = new Object[columns];
@@ -44,7 +45,7 @@ public class ClassTableModel {
     // table cho tieusu
     public DefaultTableModel setTableTieuSu(List<TieuSuModel> tieuSu, String[] listColumn) {
         final int column = listColumn.length;
-        
+
         DefaultTableModel dtm = new DefaultTableModel()  {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -55,11 +56,11 @@ public class ClassTableModel {
                  return columnIndex == 5 ? Boolean.class : String.class;
             }
         };
-        
+
         dtm.setColumnIdentifiers(listColumn);
         Object[] obj;
         obj = new Object[column];
-        
+
         tieuSu.forEach((TieuSuModel item) -> {
             obj[0] = item.getTuNgay().toString();
             obj[1] = item.getDenNgay().toString();
@@ -68,24 +69,24 @@ public class ClassTableModel {
             obj[4] = item.getNoiLamViec();
             dtm.addRow(obj);
         });
-        
+
         dtm.addRow(new Object[] {"", "", "", "", ""});
-        
+
 //        dtm.addTableModelListener(new TableModelListener() {
 //            @Override
 //            public void tableChanged(TableModelEvent e) {
 //                int a = dtm.getRowCount();
 //                if ((e.getLastRow() + 1) == dtm.getRowCount()) {
-//                    System.out.println(); 
+//                    System.out.println();
 //                }
-//                
+//
 //            }
 //        });
         return dtm;
     }
     public DefaultTableModel setTableGiaDinh(List<GiaDinhModel> giaDinh, String[] listColumn) {
         final int column = listColumn.length;
-        
+
         DefaultTableModel dtm = new DefaultTableModel()  {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -96,11 +97,11 @@ public class ClassTableModel {
                  return columnIndex == 6 ? Boolean.class : String.class;
             }
         };
-        
+
         dtm.setColumnIdentifiers(listColumn);
         Object[] obj;
         obj = new Object[column];
-        
+
         giaDinh.forEach((GiaDinhModel item) -> {
             obj[0] = item.getHoTen();
             obj[1] = item.getNamSinh().toString();
@@ -110,11 +111,11 @@ public class ClassTableModel {
             obj[5] = item.getDiaChiHienTai();
             dtm.addRow(obj);
         });
-        
+
         dtm.addRow(new Object[] {"", "", "", "", "", ""});
         return dtm;
     }
-    
+
     public DefaultTableModel setTableHoKhau(List<HoKhauBean> listItem, String[] listColumn) {
         final int columns = listColumn.length;
         DefaultTableModel dtm = new DefaultTableModel()  {
@@ -136,7 +137,7 @@ public class ClassTableModel {
             obj[2] = item.getChuHo().getHoTen();
             obj[3] = item.getHoKhauModel().getDiaChi();
             obj[4] = item.getHoKhauModel().getNgayLap();
-            
+
             dtm.addRow(obj);
         });
         return dtm;
@@ -168,7 +169,7 @@ public class ClassTableModel {
         });
         return dtm;
     }
-    
+
      public DefaultTableModel setTableEvent(List<EventModel> listItem, String[] listColumn) {
         final int columns = listColumn.length;
         DefaultTableModel dtm = new DefaultTableModel()  {
@@ -195,6 +196,6 @@ public class ClassTableModel {
         });
         return dtm;
     }
-    
-    
+
+
 }
