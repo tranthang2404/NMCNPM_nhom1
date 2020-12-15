@@ -61,7 +61,7 @@ public class DanhSachDongGopController {
         setData();
     }
 
-    public void setData() {
+    public  void setData() {
         DefaultTableModel model = tableModel.setTableDongGop(listPayment, COLUNMS);
 
         JTable table = new JTable(model) {
@@ -117,6 +117,20 @@ public class DanhSachDongGopController {
         table.validate();
         table.repaint();
         table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 1) {
+                    HoKhauBean temp = list.get(table.getSelectedRow());
+                    AddPayment addPaymentFrame = new AddPayment(temp.getHoKhauModel().getMaHoKhau(),temp.toString(),null);
+                    
+                     addPaymentFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    addPaymentFrame.setLocationRelativeTo(null);
+                    addPaymentFrame.setVisible(true);
+                }
+            }
+            
+        });
 
         JScrollPane scroll = new JScrollPane();
         scroll.getViewport().add(table);
