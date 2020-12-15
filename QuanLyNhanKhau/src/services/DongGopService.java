@@ -39,19 +39,7 @@ public class DongGopService {
             return false;
         }
     }
-     public boolean delEvent(int eventID){
-        try{
-            Connection conn = MysqlConnection.getMysqlConnection();
-            if(conn == null) return false;
-            String sql = "DELETE FROM su_kien WHERE id=" + eventID ;
-            Statement stat = conn.createStatement();
-            stat.execute(sql);
 
-            return true;
-        }catch(Exception e){
-            return false;
-        }
-    }
     public boolean addPayment(PaymentModel payment){
         try{
             Connection conn = MysqlConnection.getMysqlConnection();
@@ -189,6 +177,40 @@ public class DongGopService {
         }
     };
     
+    
+        public List<PaymentModel> getAllPaymentsByHoKhau(String IDHoKhau){
+        try{
+            Connection conn = MysqlConnection.getMysqlConnection();
+            if(conn == null) return null;
+            String sql = "select * from dong_gop where idHoKhau = '" + IDHoKhau+"'";
+            Statement stat = conn.createStatement();
+            ResultSet rs = stat.executeQuery(sql);
+            List<PaymentModel> lst = new ArrayList<>();
+            while (rs.next()) {
+                PaymentModel p = new PaymentModel();
+                p.setId(rs.getInt("id"));
+                p.setIdSukien(rs.getInt("idSukien"));
+                p.setGhichu(rs.getString("ghichu"));
+                p.setThoigian(rs.getTimestamp("thoigian"));
+                p.setIdHoKhau(rs.getString("idHoKhau"));
+                p.setSoTienDaDong(rs.getInt("sotien"));
+                int idSuKien = rs.getInt("idSukien");
+                String sqltmp = "select * from su_kien where id =  " + idSuKien;
+                Statement stat2 = conn.createStatement();
+                ResultSet rs2 = stat2.executeQuery(sqltmp);
+                while(rs2.next()){
+                    p.setTenChuHo(rs2.getString("tensukien"));  //trick, vì thời gian gấp, đổi tên chủ hộ bằng tên sự kiện
+                    break;
+                }
+                 lst.add(p);
+            }
+
+            return lst;
+        }catch(Exception e) {
+            
+            return null;
+        }
+    };
       public int totalPayment(int idSukien){
         try{
             Connection conn = MysqlConnection.getMysqlConnection();
