@@ -3,6 +3,7 @@ package utility;
 import Bean.HoKhauBean;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import models.EventModel;
 import models.GiaDinhModel;
 import models.NhanKhauModel;
 import models.PaymentModel;
@@ -163,6 +164,33 @@ public class ClassTableModel {
             obj[3] = item.getSoTienDaDong();
             obj[4] = item.getThoigian();
             obj[5] = item.getGhichu();
+            dtm.addRow(obj);
+        });
+        return dtm;
+    }
+    
+     public DefaultTableModel setTableEvent(List<EventModel> listItem, String[] listColumn) {
+        final int columns = listColumn.length;
+        DefaultTableModel dtm = new DefaultTableModel()  {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return super.isCellEditable(row, column); //To change body of generated methods, choose Tools | Templates.
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return columnIndex == 6 ? Boolean.class : String.class;
+            }
+        };
+        dtm.setColumnIdentifiers(listColumn);
+        Object[] obj;
+        obj = new Object[columns];
+        listItem.forEach((EventModel item) -> {
+            obj[0] = item.getId();
+            obj[1] = item.getTensukien();
+            obj[2] = item.getBatbuoc()==1? "Có":"Không";
+            obj[3] = item.getDongTheoHokhau();
+            obj[4] = item.getDongTheoNhanKhau();
+            obj[5] = item.getThoigian();
             dtm.addRow(obj);
         });
         return dtm;
